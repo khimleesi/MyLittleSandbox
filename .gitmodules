@@ -1,0 +1,6 @@
+[submodule "MyLittleSandbox/vendor/spdlog"]
+	path = MyLittleSandbox/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "MyLittleSandbox/vendor/cereal"]
+	path = MyLittleSandbox/vendor/cereal
+	url = https://github.com/USCiLab/cereal

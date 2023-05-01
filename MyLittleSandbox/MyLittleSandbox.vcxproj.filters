@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="mls">
+      <UniqueIdentifier>{F190880B-5D9A-887C-E615-9F7C521E947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mls\internal">
+      <UniqueIdentifier>{5DD276B7-4935-065C-F2BA-3E12DEFCD1DE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\mls.h" />
+    <ClInclude Include="src\mls\access.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\application.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\internal\context.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\core.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\internal\engine.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\internal\log.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\internal\serializer.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\internal\window.h">
+      <Filter>mls\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\math.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\memory.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\no_copy.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\singleton.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\string.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mls\utilities.h">
+      <Filter>mls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mlspch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\mls\access.cpp">
+      <Filter>mls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\application.cpp">
+      <Filter>mls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\internal\context.cpp">
+      <Filter>mls\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\internal\engine.cpp">
+      <Filter>mls\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\internal\log.cpp">
+      <Filter>mls\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\internal\serializer.cpp">
+      <Filter>mls\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\internal\window.cpp">
+      <Filter>mls\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\math.cpp">
+      <Filter>mls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\string.cpp">
+      <Filter>mls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mls\utilities.cpp">
+      <Filter>mls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mlspch.cpp" />
+  </ItemGroup>
+</Project>

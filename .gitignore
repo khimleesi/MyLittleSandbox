@@ -1,0 +1,19 @@
+﻿#Ignore Directories
+.vs/
+x64/
+bin/
+bin-int/
+doxygen/
+Sandbox/
+vendor/
+MyLittleSandbox/assets/
+
+#Ignore Extensions
+*.user
+*.txt
+*.png
+*.bat
+*.lua
+*.hint
+
+#Ignore Files
