@@ -28,9 +28,9 @@ namespace mls_internal {
 	public:
 		void swap_buffers();
 
-		SDL_Window* get_window() const { return m_window_handle; }
-		const unsigned int& get_height() const { return m_attributes.height; }
-		const unsigned int& get_width() const { return m_attributes.width; }
+		//SDL_Window* get_window() const { return m_window; }
+		//const unsigned int& get_height() const { return m_attributes.height; }
+		//const unsigned int& get_width() const { return m_attributes.width; }
 
 	private:
 		window(const std::string& file_path);
@@ -39,6 +39,7 @@ namespace mls_internal {
 	private:
 		bool initialize(const std::string& file_path);
 		void shutdown();
+		void set_attributes();
 
 	private:
 		sr_window_attributes m_attributes;

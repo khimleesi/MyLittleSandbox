@@ -6,25 +6,17 @@ typedef void* SDL_GLContext;
 
 namespace mls_internal {
 
-	class window;
-
 	class context : private mls::no_copy {
 
 		MLS_INTERNAL;
 
 		struct sr_context_attributes {
 
-			unsigned int version;
-			unsigned int subversion;
-			bool core;
 			bool vsync;
 			float r, g, b, a;
 
 		private:
 			MLS_SERIALIZE(
-				MLS_NVP(version),
-				MLS_NVP(subversion),
-				MLS_NVP(core),
 				MLS_NVP(vsync),
 				MLS_NVP(r),
 				MLS_NVP(g),
@@ -36,17 +28,20 @@ namespace mls_internal {
 		void set_clear_color(float r, float g, float b, float a);
 		void clear();
 		void set_viewport(int x, int y, int width, int height);
+		void enable_blending(bool blending);
+		void enable_depth(bool depth);
+		void enable_depth_writing(bool depth_writing);
+		void cull_back_face(bool cull);
 
 	private:
-		context(const std::string& file_path, window* window);
+		context(const std::string& file_path, void* window);
 		~context();
 
 	private:
-		bool initialize(const std::string& file_path, window* window);
+		bool initialize(const std::string& file_path, void* window);
 		void shutdown();
 
 	private:
-		void set_attributes();
 		void set_vsync();
 		void set_anisotropy();
 		void print_gpu_info();

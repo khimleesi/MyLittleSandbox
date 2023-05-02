@@ -29,7 +29,7 @@ namespace mls_internal {
 		m_window = new window("assets\\sr_window.attributes");
 		
 		//the context
-		m_context = new context("assets\\sr_context.attributes", m_window);
+		m_context = new context("assets\\sr_context.attributes", m_window->m_window_handle);
 	}
 
 	void engine::shutdown() {

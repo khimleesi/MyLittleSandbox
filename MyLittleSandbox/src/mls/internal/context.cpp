@@ -1,14 +1,13 @@
 #include "mlspch.h"
 #include <sdl/sdl.h>
 #include <opengl/glew.h>
-#include "mls/internal/window.h"
 #include "mls/internal/log.h"
 #include "mls/internal/serializer.h"
 #include "context.h"
 
 namespace mls_internal {
 
-	context::context(const std::string& file_path, window* window) {
+	context::context(const std::string& file_path, void* window) {
 		
 		initialize(file_path, window);
 	}
@@ -18,8 +17,8 @@ namespace mls_internal {
 		shutdown();
 	}
 
-	bool context::initialize(const std::string& file_path, window* window) {
-			
+	bool context::initialize(const std::string& file_path, void* window) {
+
 		if (!window) {
 			MLS_ERROR("OpenGL context has no window!");
 			return false;
@@ -30,9 +29,7 @@ namespace mls_internal {
 			return false;
 		}
 
-		set_attributes();
-
-		m_context = SDL_GL_CreateContext(static_cast<SDL_Window*>(window->get_window()));
+		m_context = SDL_GL_CreateContext(static_cast<SDL_Window*>(window));
 
 		if (!m_context) {
 			MLS_ERROR("OpenGL context could not be created!");
@@ -49,11 +46,14 @@ namespace mls_internal {
 		}
 
 		print_gpu_info();
-			
-		set_viewport(0, 0, window->get_width(), window->get_height());
+	
+		int width = 0, height = 0;
+		SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &width, &height);
+		
+		set_viewport(0, 0, width, height);
 
-		//--- Explicity set the winding order (default is counter-clockwise)
 		glFrontFace(GL_CCW);
+		glEnable(GL_MULTISAMPLE); //may need to disable when rendering certain textures?
 
 		set_anisotropy();
 
@@ -91,31 +91,46 @@ namespace mls_internal {
 		glViewport(x, y, width, height);
 	}
 
-	void context::set_attributes() {
+	void context::enable_blending(bool blending) {
+		
+		if (blending) {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		else {
+			glDisable(GL_BLEND);
+		}
+	}
 
-		//--- Set our OpenGL attributes before creating window
-		SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
-		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
+	void context::enable_depth(bool depth) {
+		
+		if (depth) { 
+			glEnable(GL_DEPTH_TEST); 
+		}
+		else { 
+			glDisable(GL_DEPTH_TEST); 
+		}
+	}
 
-		//---- Enable multisampling
-		glEnable(GL_MULTISAMPLE);
+	void context::enable_depth_writing(bool depth_writing) {
+		
+		if (depth_writing) { 
+			glDepthMask(GL_TRUE);
+		}
+		else { 
+			glDepthMask(GL_FALSE); 
+		}
+	}
 
-		//--- Set double buffering
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-		//--- Check if OpenGL profile is core or compatibility
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, (m_attributes.core) ? SDL_GL_CONTEXT_PROFILE_CORE : SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-		MLS_TRACE("OpenGL Profile Enabled:", (m_attributes.core) ? "Core" : "Compatibility");
-			
-		//--- Set OpenGL context version
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, m_attributes.version);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, m_attributes.subversion); 
-		MLS_TRACE("OpenGL Version:", m_attributes.version, ":", m_attributes.subversion);
+	void context::cull_back_face(bool cull) {
+		
+		if (cull) { 
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK); 
+		}
+		else { 
+			glDisable(GL_CULL_FACE); 
+		}
 	}
 
 	void context::set_vsync() {
